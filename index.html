@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Composer セキュリティ問診票｜5分で問診！Composer セキュリティ健康診断</title>
+<meta name="description" content="OSSサプライチェーン攻撃対策のセルフチェック問診票。OpenSSF S2C2Fの考え方に基づき、日々の開発フロー3ステップで診断します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="karte-header">
+    <div class="karte-sub">PHP CONFERENCE JAPAN 2026 ／ 5分で問診！</div>
+    <h1 class="karte-title">Composer セキュリティ問診票</h1>
+    <div class="karte-meta">
+      <div class="meta-field">
+        <label for="pdate">受診日</label>
+        <input id="pdate" type="text" readonly>
+      </div>
+    </div>
+  </div>
+
+  <p class="intro-note">
+    本問診は、OSS利用者向けフレームワーク OpenSSF S2C2F の考え方に基づき、日々の開発フローを「① 取り込む前 → ② 取り込む時 → ③ 使っている間」の3ステップ＋土台で構成しています。標準的な最新Composer環境を基準にしていますので、ご自身の環境に応じて読み替えてご回答ください。回答はブラウザ内でのみ処理され、外部に送信・保存されません。
+  </p>
+
+  <div class="disclaimer">
+    <p class="disclaimer-title">ご利用にあたって（必ずお読みください）</p>
+    <ul>
+      <li>本ツールは、2026年7月時点で一般に知られているComposerのセキュリティ対策を基にした簡易的なセルフチェックです。すべてのリスクを網羅するものではありません。</li>
+      <li>診断結果は、入力された回答に基づく参考情報です。プロダクトやシステムの安全性を保証するものではありません。</li>
+      <li>判定（A〜E）は健康診断の判定区分を模した演出であり、厳密なセキュリティスコアや診断基準ではありません。</li>
+      <li>回答内容は自己申告に基づくものであり、その正確性は検証されません。</li>
+      <li>本ツールの作成者は、本ツールの利用または結果への依拠によって生じたいかなる損害についても、責任を負いません。</li>
+      <li>本ツールは作成者個人による発信であり、所属組織の公式見解ではありません。</li>
+      <li>セキュリティのベストプラクティスは変化します。最新情報はComposer公式ドキュメント等をご確認ください。</li>
+    </ul>
+    <div class="consent-row">
+      <input type="checkbox" id="consentCheck">
+      <label for="consentCheck">上記の内容を理解した上で、問診を開始します</label>
+    </div>
+  </div>
+
+  <div id="qsections"></div>
+
+  <div class="submit-row">
+    <div class="progress-chip" id="progressChip">回答済み 0 / 13</div>
+    <button class="submit-btn" id="submitBtn" disabled>診断結果を見る</button>
+    <div class="submit-note">未回答の項目は「いいえ」として扱われます<br>★印はLT本編で紹介した重要項目です（判定に大きく影響します）</div>
+  </div>
+
+  <div id="result">
+    <div class="result-card">
+      <div class="result-label">DIAGNOSIS RESULT</div>
+      <div class="result-grid">
+        <div class="stamp" id="stamp">
+          <div class="grade-letter" id="gradeLetter">A</div>
+          <div class="grade-kanji" id="gradeKanji">異常なし</div>
+        </div>
+        <div class="result-text">
+          <p class="result-title" id="resultTitle"></p>
+          <p class="result-desc" id="resultDesc"></p>
+        </div>
+      </div>
+
+      <div class="findings" id="findingsBlock">
+        <h3>処方箋</h3>
+        <p class="findings-sub">「要治療」から順に着手することをおすすめします。</p>
+        <div id="findingsList"></div>
+      </div>
+
+      <div class="all-clear" id="allClearBlock" style="display:none;">
+        全項目、異常は見つかりませんでした。今後も定期的な問診をお忘れなく。
+      </div>
+    </div>
+    <div class="retry-row">
+      <button id="retryBtn">もう一度回答する</button>
+    </div>
+  </div>
+
+  <div class="refs">
+    <h2>参考資料</h2>
+    <ul>
+      <li><a href="https://blog.packagist.com/an-update-on-composer-packagist-supply-chain-security/" target="_blank" rel="noopener">An update on Composer & Packagist supply chain security（Packagist公式）</a></li>
+      <li><a href="https://blog.packagist.com/immutable-versions-on-packagist/" target="_blank" rel="noopener">Immutable Versions on Packagist（Packagist公式）</a></li>
+      <li><a href="https://blog.packagist.com/composer-2-10-release/" target="_blank" rel="noopener">Composer 2.10 リリース：マルウェア検知・依存ポリシー（Packagist公式）</a></li>
+      <li><a href="https://github.com/ossf/s2c2f/blob/main/specification/framework.md" target="_blank" rel="noopener">OpenSSF S2C2F 公式仕様</a></li>
+    </ul>
+  </div>
+
+  <footer>
+    Composer セキュリティ健康診断（フィクションの問診票です・正式な医療文書ではありません）<br>
+    本ツールの結果はプロダクトの安全性を保証するものではなく、利用は自己責任でお願いします。作成者個人の発信であり所属組織の公式見解ではありません。<br>
+    @AkitoTsukahara
+  </footer>
+
+</div>
+
+<script src="questions.js" defer></script>
+
+</body>
+</html>
