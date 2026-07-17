@@ -1,43 +1,43 @@
 const sections = [
   {
+    badge: "前提",
+    desc: "①〜③すべての防御機能が有効になる条件",
+    extra: false,
+    questions: [
+      {
+        code: "01",
+        main: true,
+        text: "Composerのバージョンは最新ですか？",
+        hint: "composer self-update ですぐに更新できます",
+        advice: "Composer自体にRCE脆弱性（CVE-2026-40176等）が見つかっています。また2.10のマルウェア検知やタグ改ざん防止は、最新版でないと使えません。<code>composer self-update</code> を実行してください。"
+      }
+    ]
+  },
+  {
     badge: "① 取り込む前",
     desc: "S2C2F: Ingest",
     extra: false,
     questions: [
       {
-        code: "01",
+        code: "02",
         main: true,
         text: "公開直後のパッケージをすぐに取り込まないようにしていますか？",
         hint: "Dependabot / Renovate のクールダウン設定など（Composer本体のminimum-release-ageは未実装）",
         advice: "悪性リリースは数分〜数時間で検知されることが多く、公開直後の数日を見送るだけで大半を回避できます。Dependabotは2026/7以降デフォルトで3日のクールダウンが有効（github.com）。Renovateはデフォルト0日のため<code>minimumReleaseAge</code>の設定が必要です。"
       },
       {
-        code: "02",
+        code: "03",
         main: false,
         text: "新しい依存を追加する前に、パッケージの素性を確認していますか？",
         hint: "メンテナ・活動状況・本当に必要か（1関数のために入れていないか）",
         advice: "依存を1つ増やすことは信頼関係を1つ増やすこと。追加前に「そもそも必要か」「代替はないか」を検討するだけで攻撃対象面を減らせます。"
       },
       {
-        code: "03",
+        code: "04",
         main: false,
         text: "（組織向け）パッケージの取り込み窓口を一元化していますか？",
         hint: "Private Packagist等のミラー経由。個人開発など該当しない場合は「はい」を選択",
         advice: "ミラーを経由すると、マルウェア版のダウンロードを組織全体でブロックできます（古いComposerクライアントにも有効）。組織での導入を検討してください。"
-      }
-    ]
-  },
-  {
-    badge: "前提",
-    desc: "①〜③すべての防御機能が有効になる条件",
-    extra: false,
-    questions: [
-      {
-        code: "04",
-        main: true,
-        text: "Composerのバージョンは最新ですか？",
-        hint: "composer self-update ですぐに更新できます",
-        advice: "Composer自体にRCE脆弱性（CVE-2026-40176等）が見つかっています。また2.10のマルウェア検知やタグ改ざん防止は、最新版でないと使えません。<code>composer self-update</code> を実行してください。"
       }
     ]
   },
