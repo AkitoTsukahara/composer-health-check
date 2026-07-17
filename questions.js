@@ -9,7 +9,7 @@ const sections = [
         main: true,
         text: "公開直後のパッケージをすぐに取り込まないようにしていますか？",
         hint: "Dependabot / Renovate のクールダウン設定など（Composer本体のminimum-release-ageは未実装）",
-        advice: "攻撃者の悪性リリースは数分〜数時間で検知・削除されることが多く、公開直後の数日を見送るだけで大半を回避できます。Dependabot / Renovate のクールダウン設定を有効にしてください。"
+        advice: "悪性リリースは数分〜数時間で検知されることが多く、公開直後の数日を見送るだけで大半を回避できます。Dependabotは2026/7以降デフォルトで3日のクールダウンが有効（github.com）。Renovateはデフォルト0日のため<code>minimumReleaseAge</code>の設定が必要です。"
       },
       {
         code: "02",
@@ -28,8 +28,8 @@ const sections = [
     ]
   },
   {
-    badge: "土台",
-    desc: "すべての防御機能の前提",
+    badge: "前提",
+    desc: "①〜③すべての防御機能が有効になる条件",
     extra: false,
     questions: [
       {
@@ -55,10 +55,10 @@ const sections = [
       },
       {
         code: "06",
-        main: true,
-        text: "allow-plugins を許可リスト化していますか？",
-        hint: "composer.json での明示的な列挙",
-        advice: "普通のライブラリが突然Composerプラグイン化して任意コードを実行する手口（intercom-php事件）を防げます。プラグインとして動いてよいパッケージを <code>allow-plugins</code> に明示的に列挙してください。"
+        main: false,
+        text: "allow-plugins を個別の許可リストにしていますか？（true＝全許可にしていない）",
+        hint: "allow-pluginsは「何を入れるか」ではなく「入っているもののどれに実行を許すか」のリスト",
+        advice: "<code>true</code>（全許可）は、間接依存を含む全パッケージに将来のバージョンまで無条件でinstall中の実行権を渡す設定です。intercom-php事件のように普通のライブラリが改ざんでプラグイン化する手口に対し、個別列挙ならリスト外のプラグイン出現時に必ず確認が入ります（手元での最後の砦。CIは--no-pluginsで別途防御）。"
       },
       {
         code: "07",

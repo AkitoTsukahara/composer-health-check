@@ -2,7 +2,7 @@
 
 「5分で問診！Composer セキュリティ健康診断」（PHP Conference Japan 2026 LT）の付録セルフチェックツールです。
 
-OSSサプライチェーン攻撃対策のチェック項目を、OpenSSF S2C2F（Secure Supply Chain Consumption Framework）の考え方に基づく3ステップ（① 取り込む前 → ② 取り込む時 → ③ 使っている間）＋土台で構成しています。
+OSSサプライチェーン攻撃対策のチェック項目を、OpenSSF S2C2F（Secure Supply Chain Consumption Framework）の考え方に基づく3ステップ（① 取り込む前 → ② 取り込む時 → ③ 使っている間）＋前提で構成しています。
 
 ## 使い方
 
